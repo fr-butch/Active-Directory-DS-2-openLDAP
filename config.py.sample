@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+#example template for user in openLDAP
+user_tpl = {'cn': [],
+   'givenName': [],
+   'gidNumber': ['1001'],
+   'goFonDeliveryMode': ['[]'],
+   'goFonFormat': ['wav'],
+   'goFonHardware': ['automatic'],
+   'goFonHomeServer': ['cn=some.domain.loc,ou=servers,ou=systems,dc=domain,dc=loc'],
+   'goFonPIN': ['12345'],
+   'goFonVoicemailPIN': ['12345'],
+   'gosaMailDeliveryMode': ['[L]'],
+   'gosaMailServer': ['some.domain.loc'],
+   'gosaSpamMailbox': ['INBOX'],
+   'gosaSpamSortLevel': ['0'],
+   'homeDirectory': [],
+   'homePhone': [],
+   'loginShell': ['/bin/bash'],
+   'mail': [],
+   'objectClass': ['top',
+                   'person',
+                   'organizationalPerson',
+                   'inetOrgPerson',
+                   'gosaAccount',
+                   'posixAccount',
+                   'shadowAccount',
+                   'gosaMailAccount',
+                   'goFonAccount'],
+   'sambaBadPasswordCount': ['0'],
+   'sambaBadPasswordTime': ['0'],
+   'sambaLMPassword': [],
+   'sambaNTPassword': [],
+   'sambaPwdLastSet': [],
+   'shadowLastChange': ['12345'],
+   'sn': [],
+   'telephoneNumber': [],
+   'uid': [],
+   'userPassword': []
+   }
+
+
+#AD DS server
+server = 'ldap://ad-ds.domain.loc/'
+#user for access
+user_dn = "cn=admin,cn=Users,dc=some,dc=domain,dc=loc" 
+user_pw = "PASSWORD" 
+#where to find users
+base_dn = 'cn=Users,dc=some,dc=domain,dc=loc'
+#filter for users
+user_fltr = '(&(objectClass=user)(sAMAccountType=805306368))'
+#do not sync this sAMAccountName
+exclude_dn=('Administrator', 'Guest')
+
+#openLDAP server
+server_l = 'ldap://openldap.domain.loc/'
+user_dn_l = 'cn=admin,dc=domain,dc=loc'
+user_pw_l = 'PASSWORD'
+#where to put users
+base_dn_l = 'ou=some-ou,dc=domain,dc=loc'
+user_fltr_l = 'objectClass=person'
+#template for target full dn path in openldap
+dn_prod="uid=%s,ou=people,"+base_dn_l 
